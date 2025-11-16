@@ -1,0 +1,17 @@
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+joblib
+flask
+flask-cors
+jupyter
+notebook
+xgboost
+lightgbm
+catboost
+simplejson
+python-dotenv
+pydantic
+requests

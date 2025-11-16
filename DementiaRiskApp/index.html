@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Dementia Risk Estimator - Welcome</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#13ec5b",
+            "background-light": "#f6f8f6",
+            "background-dark": "#102216",
+            "text-light-primary": "#0d1b12",
+            "text-dark-primary": "#e1f3e8",
+          },
+          fontFamily: {
+            display: ["Manrope", "sans-serif"],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-text-dark-primary">
+  <div class="flex min-h-screen flex-col items-center justify-center p-8">
+    
+    <div class="flex items-center gap-4 text-text-light-primary dark:text-text-dark-primary mb-6">
+      <div class="size-12 text-primary">
+        <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold leading-tight tracking-[-0.015em]">Dementia Risk Estimator</h1>
+    </div>
+
+    <div class="w-full max-w-lg rounded-lg bg-white dark:bg-gray-800 p-8 text-center shadow-lg">
+      <h2 class="text-2xl font-bold text-text-light-primary dark:text-text-dark-primary mb-4">Understand Your Cognitive Health</h2>
+      <p class="text-gray-600 dark:text-gray-300 mb-8">
+        This tool provides an estimate of dementia risk based on lifestyle factors. It is not a medical diagnosis.
+      </p>
+      
+      <a href="pages/step-1.html" class="inline-block w-full px-6 py-4 rounded-lg text-lg font-semibold text-background-dark bg-primary hover:bg-opacity-80 transition-colors">
+        Start Assessment
+      </a>
+    </div>
+    
+    <footer class="mt-8 text-center">
+      <a class="text-xs text-gray-500 dark:text-gray-400 hover:underline" href="#">Privacy Policy</a>
+    </footer>
+  </div>
+</body>
+</html>

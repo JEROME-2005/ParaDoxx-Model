@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  
+  <meta http-equiv="refresh" content="3;url=results.html">
+  
+  <title>CogniWell - Calculating Results</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#4A90E2", // Soft calming blue
+            "background-light": "#F8F9FA", // Off-white
+            "background-dark": "#102216", // Keeping a dark mode variant
+            "accent": "#4DB6AC", // Muted teal
+            "text-light": "#4F4F4F", // Dark gray for light mode
+            "text-dark": "#E0E0E0", // Light gray for dark mode
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+    }
+    .material-symbols-outlined {
+      font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+  <div class="relative flex h-screen min-h-screen w-full flex-col group/design-root">
+    <div class="w-full">
+      <div class="flex flex-1 justify-center px-4 md:px-10 lg:px-20">
+        <div class="flex w-full max-w-7xl flex-col">
+          <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200/80 dark:border-gray-700/80 px-4 py-4">
+            <div class="flex items-center gap-3 text-text-light dark:text-text-dark">
+              <span class="material-symbols-outlined text-primary text-2xl">neurology</span>
+              <h2 class="text-xl font-bold leading-tight tracking-tight">CogniWell</h2>
+            </div>
+            <div class="hidden md:flex flex-1 justify-end gap-8">
+              <div class="flex items-center gap-8">
+                <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="../index.html">Home</a>
+              </div>
+            </div>
+            <div class="md:hidden">
+              <span class="material-symbols-outlined text-2xl">menu</span>
+            </div>
+          </header>
+        </div>
+      </div>
+    </div>
+    <main class="flex flex-1 items-center justify-center p-4">
+      <div class="w-full max-w-2xl rounded-xl bg-white dark:bg-gray-800/50 shadow-sm border border-gray-200/50 dark:border-gray-700/50 p-8 sm:p-12 text-center">
+        <h1 class="text-text-light dark:text-text-dark tracking-tight text-3xl font-bold leading-tight pb-3">Analyzing your information...</h1>
+        <p class="text-text-light/80 dark:text-text-dark/80 text-base font-normal leading-relaxed pb-8">
+          Understanding your cognitive health is a proactive step. We're preparing your personalized insights now.
+        </p>
+        <div class="flex flex-col gap-3 py-4">
+          <div class="flex gap-6 justify-between sr-only">
+            <p class="text-base font-medium leading-normal">Calculating your estimate</p>
+          </div>
+          <div class="rounded-full bg-gray-200 dark:bg-gray-700/80">
+            <div class="h-2 rounded-full bg-primary" style="width: 75%;"></div>
+          </div>
+          <p class="text-primary text-sm font-normal leading-normal">This will only take a moment.</p>
+        </div>
+        <div class="h-px bg-gray-200/80 dark:bg-gray-700/80 my-8"></div>
+        <p class="text-accent text-sm font-normal leading-normal">
+          Did you know? Regular social activity is linked to better brain health.
+        </p>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

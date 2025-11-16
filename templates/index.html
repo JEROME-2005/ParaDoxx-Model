@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cognitive Health Estimator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">Cognitive Health Estimator</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#faq">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <div class="hero-text">
+                <h1>Understand Your Future Cognitive Health</h1>
+                <p class="hero-description">
+                    This tool provides a non-medical estimation of dementia risk based on lifestyle factors. 
+                    It is not a medical diagnosis but a guide to empower proactive choices for your well-being.
+                </p>
+                <div class="cta-buttons">
+                    <a href="{{ url_for('questionnaire') }}" class="btn btn-primary">Begin the Questionnaire</a>
+                    <a href="#methodology" class="btn btn-secondary">Learn about the methodology</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="gradient-box"></div>
+            </div>
+        </div>
+
+        <section class="features-section">
+            <h2 class="section-title">A Tool for Proactive Well-being</h2>
+            <p class="section-subtitle">
+                Our approach is designed to be simple, secure, and supportive, giving you insights based on everyday factors.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Non-Medical Data</h3>
+                    <p>We use only lifestyle and social habits for estimation, not medical records.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Quick & Easy</h3>
+                    <p>The questionnaire is straightforward and can be completed in just a few minutes.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Completely Confidential</h3>
+                    <p>Your privacy is paramount. All data is anonymized and securely handled.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Empowering Insights</h3>
+                    <p>Our goal is to help you understand factors you can control for a healthier future.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <p class="copyright">© 2024 Cognitive Health Estimator. All rights reserved.</p>
+    </footer>
+</body>
+</html>

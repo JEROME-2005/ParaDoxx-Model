@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Risk Assessment Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .results-container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .results-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .risk-score-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+        
+        .risk-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--risk-color, var(--primary-green)) 0deg,
+                var(--risk-color, var(--primary-green)) calc(var(--risk-percentage) * 3.6deg),
+                var(--border-color) calc(var(--risk-percentage) * 3.6deg),
+                var(--border-color) 360deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .risk-circle::before {
+            content: '';
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            background: var(--white);
+            border-radius: 50%;
+        }
+        
+        .risk-percentage {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .risk-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .risk-badge.low-risk {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .risk-badge.medium-risk {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .risk-badge.at-risk {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .risk-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+        
+        .action-buttons {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .recommendations-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .recommendations-card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+        
+        .recommendation-item {
+            background: var(--light-green);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-green);
+        }
+        
+        .recommendation-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .recommendation-icon {
+            font-size: 1.5rem;
+        }
+        
+        .recommendation-item p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+        
+        .disclaimer {
+            background: var(--bg-light);
+            border: 2px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 3rem;
+        }
+        
+        .disclaimer h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .disclaimer p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 4rem;
+        }
+        
+        .spinner {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-green);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .risk-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .risk-circle::before {
+                width: 125px;
+                height: 125px;
+            }
+            
+            .risk-percentage {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">Dementia Risk Estimator</span>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('questionnaire') }}">New Assessment</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="results-container">
+        <!-- Loading state -->
+        <div id="loadingState" class="loading">
+            <div class="spinner"></div>
+            <p>Loading your results...</p>
+        </div>
+
+        <!-- Results content (hidden initially) -->
+        <div id="resultsContent" style="display: none;">
+            <div class="results-header">
+                <h1>Your Estimated Dementia Risk Results</h1>
+            </div>
+
+            <div class="results-grid">
+                <div class="risk-score-card">
+                    <div class="risk-circle" id="riskCircle">
+                        <span class="risk-percentage" id="riskScore">--</span>
+                    </div>
+                    
+                    <span class="risk-badge" id="riskBadge">--</span>
+                    
+                    <p class="risk-description" id="riskDescription">
+                        This score is an estimate based on your provided lifestyle information.
+                    </p>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="window.print()">
+                            📥 Download or Print My Results
+                        </button>
+                        <a href="{{ url_for('questionnaire') }}" class="btn btn-secondary">
+                            🔄 Take Assessment Again
+                        </a>
+                    </div>
+                </div>
+
+                <div class="recommendations-card">
+                    <h2>Steps to a Healthier Brain</h2>
+                    <p id="recommendationsIntro" style="color: var(--text-gray); margin-bottom: 1.5rem;">
+                        Based on your responses, here are personalized recommendations.
+                    </p>
+
+                    <div id="recommendationsList">
+                        <!-- Recommendations will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <h3>⚠️ Important Disclaimer:</h3>
+                <p>
+                    This tool provides an estimate of dementia risk based on non-medical lifestyle factors and is 
+                    for informational purposes only. It is not a medical diagnosis. The results should not be used 
+                    as a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice 
+                    of your physician or other qualified health provider with any questions you may have regarding 
+                    a medical condition.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="copyright">© 2024 Cognitive Health Estimator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Load and display results
+        window.addEventListener('DOMContentLoaded', function() {
+            // Get results from sessionStorage
+            const resultsData = sessionStorage.getItem('riskResults');
+            
+            if (!resultsData) {
+                // No results found - redirect to questionnaire
+                alert('No assessment results found. Please complete the questionnaire first.');
+                window.location.href = "{{ url_for('questionnaire') }}";
+                return;
+            }
+            
+            try {
+                const results = JSON.parse(resultsData);
+                displayResults(results);
+            } catch (error) {
+                console.error('Error loading results:', error);
+                alert('Error loading results. Please try again.');
+                window.location.href = "{{ url_for('questionnaire') }}";
+            }
+        });
+        
+        function displayResults(results) {
+            // Hide loading, show content
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('resultsContent').style.display = 'block';
+            
+            // Update risk score
+            document.getElementById('riskScore').textContent = results.risk_percentage + '%';
+            
+            // Update risk circle color
+            const riskCircle = document.getElementById('riskCircle');
+            riskCircle.style.setProperty('--risk-percentage', results.risk_percentage);
+            riskCircle.style.setProperty('--risk-color', results.risk_color);
+            
+            // Update risk badge
+            const badge = document.getElementById('riskBadge');
+            badge.textContent = results.risk_category;
+            badge.className = 'risk-badge ' + results.risk_category.toLowerCase().replace(' ', '-');
+            
+            // Update description
+            const descriptions = {
+                'Low Risk': 'Your lifestyle factors suggest a lower risk. Continue with healthy habits!',
+                'Medium Risk': 'Your lifestyle factors suggest moderate risk. Consider the recommendations below.',
+                'At Risk': 'Your lifestyle factors suggest elevated risk. Please review the recommendations and consult a healthcare professional.'
+            };
+            document.getElementById('riskDescription').textContent = descriptions[results.risk_category] || 
+                'This score is an estimate based on your provided lifestyle information.';
+            
+            // Update recommendations intro
+            document.getElementById('recommendationsIntro').textContent = 
+                `Based on your ${results.risk_category.toLowerCase()} assessment, here are personalized recommendations to support brain health.`;
+            
+            // Display recommendations
+            const recList = document.getElementById('recommendationsList');
+            recList.innerHTML = '';
+            
+            results.recommendations.forEach(rec => {
+                const recDiv = document.createElement('div');
+                recDiv.className = 'recommendation-item';
+                recDiv.innerHTML = `
+                    <h3>
+                        <span class="recommendation-icon">${rec.icon}</span>
+                        ${rec.title}
+                    </h3>
+                    <p>${rec.text}</p>
+                `;
+                recList.appendChild(recDiv);
+            });
+        }
+    </script>
+</body>
+</html>

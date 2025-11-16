@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment Questionnaire</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <span class="logo-text">Dementia Risk Estimator</span>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="#help">Help & Support</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="questionnaire-container">
+        <div class="progress-section">
+            <h2 class="progress-title">Risk Assessment Questionnaire</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <p class="progress-text">Step <span id="currentStep">1</span> of <span id="totalSteps">7</span></p>
+        </div>
+
+        <form id="assessmentForm">
+            <!-- Section 1: Basic Demographics -->
+            <div class="form-section active" data-section="1">
+                <h2 class="section-heading">Basic Demographics</h2>
+                <p class="section-description">Please provide some basic information about yourself.</p>
+
+                <div class="question-group">
+                    <label class="question-label">Were you born before the year 1970?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="born_before_1970" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="born_before_1970" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Is your sex male?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="sex_male" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="sex_male" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Do you identify as Hispanic or Latino?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="hispanic_latino" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="hispanic_latino" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Do you identify as a racial minority group (non-White)?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="racial_minority" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="racial_minority" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Have you completed more than 10 years of formal education?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="education_years" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="education_years" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Are you currently married or living with a partner?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="married_partnered" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="married_partnered" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Are you right-handed?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="right_handed" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="right_handed" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Background / Living Situation -->
+            <div class="form-section" data-section="2">
+                <h2 class="section-heading">Background / Living Situation</h2>
+                <p class="section-description">Tell us about your living and language background.</p>
+
+                <div class="question-group">
+                    <label class="question-label">Have you lived in an English-speaking country for more than 5 years?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="english_country" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="english_country" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Have you lived in a Spanish-speaking environment for more than 5 years?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="spanish_environment" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="spanish_environment" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Do you speak English well enough to hold a conversation?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="speak_english" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="speak_english" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Do you speak Spanish well enough to hold a conversation?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="speak_spanish" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="speak_spanish" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Vision & Hearing -->
+            <div class="form-section" data-section="3">
+                <h2 class="section-heading">Vision & Hearing</h2>
+                <p class="section-description">Information about your sensory health.</p>
+
+                <div class="question-group">
+                    <label class="question-label">Is your vision good enough to read or see signs without glasses?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="vision_without_glasses" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="vision_without_glasses" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">If you wear glasses, is your vision good when using them?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="vision_with_glasses" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="vision_with_glasses" value="no" required>
+                            <span>No</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="vision_with_glasses" value="na" required>
+                            <span>Not Applicable</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Is your hearing good without a hearing aid?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="hearing_without_aid" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="hearing_without_aid" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">If you use a hearing aid, does it improve your hearing?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="hearing_with_aid" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="hearing_with_aid" value="no" required>
+                            <span>No</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="hearing_with_aid" value="na" required>
+                            <span>Not Applicable</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: General Lifestyle / Health Indicators -->
+            <div class="form-section" data-section="4">
+                <h2 class="section-heading">General Lifestyle / Health Indicators</h2>
+                <p class="section-description">Basic health and biometric information.</p>
+
+                <div class="question-group">
+                    <label class="question-label">Is your height above 150 cm (4'11")?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="height_above_150" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="height_above_150" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Is your weight above 50 kg?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="weight_above_50" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="weight_above_50" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Is your resting heart rate usually between 50–100 beats per minute?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="heart_rate_normal" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="heart_rate_normal" value="no" required>
+                            <span>No</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="heart_rate_normal" value="unsure" required>
+                            <span>Unsure</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Is your systolic blood pressure usually below 140?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="systolic_bp" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="systolic_bp" value="no" required>
+                            <span>No</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="systolic_bp" value="unsure" required>
+                            <span>Unsure</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Is your diastolic blood pressure usually below 90?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="diastolic_bp" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="diastolic_bp" value="no" required>
+                            <span>No</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="diastolic_bp" value="unsure" required>
+                            <span>Unsure</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Smoking Indicator -->
+            <div class="form-section" data-section="5">
+                <h2 class="section-heading">Smoking Habits</h2>
+                <p class="section-description">Information about smoking history.</p>
+
+                <div class="question-group">
+                    <label class="question-label">Have you ever smoked cigarettes regularly?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="smoking_history" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="smoking_history" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Visit / Platform Questions -->
+            <div class="form-section" data-section="6">
+                <h2 class="section-heading">Platform Information</h2>
+                <p class="section-description">A few questions about your experience with this tool.</p>
+
+                <div class="question-group">
+                    <label class="question-label">Is this your first time using this dementia-risk tool?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="first_time_user" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="first_time_user" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Are you answering this questionnaire in English?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="answering_in_english" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="answering_in_english" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question-group">
+                    <label class="question-label">Are you answering remotely (not in person)?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="remote_response" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="remote_response" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Review & Submit -->
+            <div class="form-section" data-section="7">
+                <h2 class="section-heading">Review Your Information</h2>
+                <p class="section-description">Please review your answers before submitting.</p>
+                
+                <div class="review-notice">
+                    <p><strong>Important:</strong> By submitting this form, you confirm that all information provided is accurate to the best of your knowledge. This assessment is for informational purposes only and does not constitute medical advice.</p>
+                </div>
+
+                <div class="consent-checkbox">
+                    <label>
+                        <input type="checkbox" name="consent" required>
+                        <span>I understand that this is not a medical diagnosis and agree to the terms of use.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="form-navigation">
+                <button type="button" class="btn btn-secondary" id="prevBtn" style="display: none;">Back</button>
+                <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Submit Assessment</button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <p class="copyright">© 2024 Cognitive Health Estimator. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/questionnaire.js') }}"></script>
+</body>
+</html>
